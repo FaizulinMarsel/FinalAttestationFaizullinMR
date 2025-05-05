@@ -1,6 +1,6 @@
-package jupiter.annotations.ui;
+package jupiter.annotations;
 
-import jupiter.extensions.ui.TestUserUiExtension;
+import jupiter.extensions.TestUserUiExtension;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.lang.annotation.ElementType;

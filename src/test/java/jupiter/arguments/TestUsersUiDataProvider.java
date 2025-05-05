@@ -1,4 +1,4 @@
-package jupiter.arguments.ui;
+package jupiter.arguments;
 
 import config.users.ui.UserUiConfig;
 import model.TestUserUi;

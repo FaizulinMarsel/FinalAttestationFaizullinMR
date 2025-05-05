@@ -1,7 +1,7 @@
-package jupiter.extensions.ui;
+package jupiter.extensions;
 
 import config.users.ui.UserUiConfig;
-import jupiter.annotations.ui.WithTestUserUi;
+import jupiter.annotations.WithTestUserUi;
 import model.TestUserUi;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;

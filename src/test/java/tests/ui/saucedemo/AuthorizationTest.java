@@ -2,7 +2,7 @@ package tests.ui.saucedemo;
 
 import config.expected.Expected;
 import io.qameta.allure.Param;
-import jupiter.annotations.ui.WithTestUserUi;
+import jupiter.annotations.WithTestUserUi;
 import model.TestUserUi;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,8 +12,8 @@ import pages.ProductsPage;
 import tests.BaseTest;
 
 import static io.qameta.allure.model.Parameter.Mode.HIDDEN;
-import static jupiter.annotations.ui.WithTestUserUi.Type.LockedOut;
-import static jupiter.annotations.ui.WithTestUserUi.Type.Standard;
+import static jupiter.annotations.WithTestUserUi.Type.LockedOut;
+import static jupiter.annotations.WithTestUserUi.Type.Standard;
 
 public class AuthorizationTest extends BaseTest {
 

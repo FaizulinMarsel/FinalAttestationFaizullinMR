@@ -2,7 +2,7 @@ package tests.ui.saucedemo;
 
 import io.qameta.allure.Description;
 import io.qameta.allure.Param;
-import jupiter.arguments.ui.TestUsersUiDataProvider;
+import jupiter.arguments.TestUsersUiDataProvider;
 import model.TestUserUi;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
