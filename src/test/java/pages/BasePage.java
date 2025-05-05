@@ -2,8 +2,6 @@ package pages;
 
 import org.openqa.selenium.By;
 
-import java.time.Duration;
-
 import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;

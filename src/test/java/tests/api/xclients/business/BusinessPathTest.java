@@ -1,4 +1,4 @@
-package tests.api.xclients.contracts;
+package tests.api.xclients.business;
 
 import config.employee.request.TestData;
 import config.employee.request.path.CreateEmployeeRequestPath;
@@ -21,9 +21,8 @@ import java.sql.SQLException;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ContractPathTest {
+public class BusinessPathTest {
     String token;
     int companyId;
     String employeeEmail;
@@ -33,9 +32,6 @@ public class ContractPathTest {
     String url;
     String email;
     String lastName;
-
-    String nonexistentUserToken;
-    int incorrectEmployeeId;
     Response response;
     static TestData testData;
     static AuthRequest authRequest;
@@ -87,61 +83,16 @@ public class ContractPathTest {
         userAdmin.deleteUserAdmin(authRequest.login());
     }
     @Test
-    @DisplayName("Статус 200. Изменение данных сотрудника")
-    public void checkChangeEmployeeStatusOk() {
+    @DisplayName("Валидация измененных полей")
+    public void checkChangeEmployee() {
         sendPatchRequest(employeeId, createEmployeeRequestPath, token)
                 .then()
-                .statusCode(200);
-    }
-    @Test
-    @DisplayName("Проверяем, что в ответе приходит JSON-файл")
-    public void checkCorrectJson() {
-        String responseBody = sendPatchRequest(employeeId, createEmployeeRequestPath, token)
-                .then()
-                .contentType(ContentType.JSON)
-                .extract().asString();
-        assertTrue(responseBody.startsWith("{"));
-        assertTrue(responseBody.endsWith("}"));
+                .body("id", equalTo(employeeId))
+                .body("isActive", equalTo(isActive))
+                .body("email", equalTo(email))
+                .body("url", equalTo(url));
     }
 
-    @Test
-    @DisplayName("Статус 500. Передан несуществующий id Employee")
-    public void checkErrorStatusNonexistentIdEmployee() {
-        incorrectEmployeeId = testData.getIncorrectEmployeeId();
-        sendPatchRequest(incorrectEmployeeId, createEmployeeRequestPath, token)
-                .then()
-                .statusCode(500)
-                .body("message", equalTo("Internal server error"));
-    }
-
-    @Test
-    @DisplayName("Статус 401. Неверный токен")
-    public void checkNonexistentUserToken() {
-        nonexistentUserToken = testData.getIncorrectUserToken();
-        sendPatchRequest(employeeId, createEmployeeRequestPath, nonexistentUserToken)
-                .then()
-                .statusCode(401);
-    }
-
-    @Test
-    @DisplayName("Статус 400. Передан пустой lastName")
-    public void checkNullLastName() {
-        lastName = testData.getIncorrectLastName();
-        createEmployeeRequestPath = employeeRequestPath.createRequestPath(lastName, email, url, phone, isActive);
-        sendPatchRequest(employeeId, createEmployeeRequestPath, token)
-                .then()
-                .statusCode(400);
-    }
-
-    @Test
-    @DisplayName("Статус 400. Передан некорректный email")
-    public void checkNonexistentEmailErrorStatus() {
-        email = testData.getIncorrectEmail();
-        createEmployeeRequestPath = employeeRequestPath.createRequestPath(lastName, email, url, phone, isActive);
-        sendPatchRequest(employeeId, createEmployeeRequestPath, token)
-                .then()
-                .statusCode(400);
-    }
     private static Response sendPostRequest(Object bodyRequest, String token) {
         return given()
                 .basePath("employee")

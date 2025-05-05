@@ -3,13 +3,13 @@ package database.company;
 
 import java.sql.*;
 
-public class CompanyServiceJdbc implements CompanyService{
+public class CompanyServiceJdbc {
     Connection connection;
     public CompanyServiceJdbc(Connection connection){
         this.connection = connection;
     }
 
-    public int createCompany(CompanyEntity entity) throws SQLException {
+    public int createCompany() throws SQLException {
 
         String INSERT_COMPANY = """
                 insert into company (is_active, "name", description)
@@ -18,9 +18,9 @@ public class CompanyServiceJdbc implements CompanyService{
         PreparedStatement preparedStatement = connection.prepareStatement(
                 INSERT_COMPANY, Statement.RETURN_GENERATED_KEYS
         );
-        preparedStatement.setBoolean(1, entity.isActiveCompany());
-        preparedStatement.setString(2, entity.getNameCompany());
-        preparedStatement.setString(3, entity.getDescriptionCompany());
+        preparedStatement.setBoolean(1, CompanyService.getInstance().getIsActiveCompany());
+        preparedStatement.setString(2, CompanyService.getInstance().getNameCompany());
+        preparedStatement.setString(3, CompanyService.getInstance().getDescriptionCompany());
         preparedStatement.executeUpdate();
         ResultSet resultSet = preparedStatement.getGeneratedKeys();
         resultSet.next();

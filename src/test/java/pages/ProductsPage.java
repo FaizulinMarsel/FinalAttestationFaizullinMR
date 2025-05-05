@@ -1,6 +1,5 @@
 package pages;
 
-import config.expected.Expected;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 

@@ -1,6 +1,5 @@
 package pages;
 
-import config.expected.Expected;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;

@@ -1,6 +1,5 @@
 package pages;
 
-import config.browser.BrowserConfig;
 import config.urls.UrlsConfig;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;

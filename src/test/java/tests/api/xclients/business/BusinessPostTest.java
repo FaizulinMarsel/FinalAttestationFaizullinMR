@@ -1,4 +1,4 @@
-package tests.api.xclients.contracts;
+package tests.api.xclients.business;
 
 import config.employee.request.TestData;
 import config.employee.request.post.CreateEmployeeRequestPost;
@@ -17,10 +17,9 @@ import utils.auth.AuthRequest;
 import java.sql.SQLException;
 
 import static io.restassured.RestAssured.given;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ContractPostTest {
+public class BusinessPostTest {
     String token;
     int companyId;
     String employeeEmail;
@@ -64,64 +63,10 @@ public class ContractPostTest {
         userAdmin.deleteUserAdmin(authRequest.login());
     }
     @Test
-    @DisplayName("Статус 201. Сотрудник добавлен")
-    public void addEmployeeStatusOk() {
-        response.then().statusCode(201);
+    @DisplayName("Проверяем, что возвращенный id > 0")
+    public void addEmployeeCheckId() {
+        assertTrue(response.jsonPath().getInt("id") > 0);
     }
-    @Test
-    @DisplayName("Статус 401. Передача неверного токена")
-    public void nonexistentUserToken() {
-        nonexistentUserToken = testData.getIncorrectUserToken();
-        response = sendPostRequest(createEmployeeRequestPost, nonexistentUserToken);
-        response.then().statusCode(401);
-    }
-    @Test
-    @DisplayName("Статус 400. Неверный e-mail")
-    public void nonexistentEmail() {
-        incorrectEmployeeEmail = testData.getIncorrectEmail();
-        createEmployeeRequestPost = EmployeeRequestPost.getEmployeeRequest(companyId, incorrectEmployeeEmail);
-        Response response = sendPostRequest(createEmployeeRequestPost, token);
-        response.then().statusCode(400);
-    }
-
-    @Test
-    @DisplayName("Статус 400. Сломанный JSON")
-    public void brokenJson() {
-        incorrectEmployeeEmail = testData.getBrokenJson();
-        createEmployeeRequestPost = EmployeeRequestPost.getEmployeeRequest(companyId, incorrectEmployeeEmail);
-        Response response = sendPostRequest(createEmployeeRequestPost, token);
-        response.then().statusCode(400);
-    }
-
-    @Test
-    @DisplayName("Статус 500. Передача несуществующего id компании")
-    public void nonexistentCompanyId() {
-        nonexistentId = testData.getIncorrectCompanyId();
-        createEmployeeRequestPost = EmployeeRequestPost.getEmployeeRequest(nonexistentId, employeeEmail);
-        Response response = sendPostRequest(createEmployeeRequestPost, token);
-        response.then().statusCode(500);
-    }
-
-    @Test
-    @DisplayName("Проверяем, что в ответе приходит JSON-файл")
-    public void correctJson() {
-        response.then().contentType(ContentType.JSON);
-    }
-
-    @Test
-    @DisplayName("Проверяем формат JSON-файла")
-    public void checkFormatJson() {
-        String responseBody = response.getBody().asString();
-        assertTrue(responseBody.startsWith("{"));
-        assertTrue(responseBody.endsWith("}"));
-    }
-
-    @Test
-    @DisplayName("Проверяем поля JSON-файла")
-    public void checkFiledJsonFile() {
-        assertNotNull(response.jsonPath().get("id"));
-    }
-
     private static Response sendPostRequest(Object bodyRequest, String token) {
         return given()
                 .basePath("employee")

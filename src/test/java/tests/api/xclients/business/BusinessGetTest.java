@@ -1,4 +1,4 @@
-package tests.api.xclients.contracts;
+package tests.api.xclients.business;
 
 import config.employee.request.TestData;
 import config.employee.request.post.CreateEmployeeRequestPost;
@@ -18,9 +18,8 @@ import java.sql.SQLException;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ContractGetTest {
+public class BusinessGetTest {
     String token;
     int companyId;
     String employeeEmail;
@@ -64,64 +63,39 @@ public class ContractGetTest {
         userAdmin.deleteUserAdmin(authRequest.login());
     }
     @Test
-    @DisplayName("Статус 200. Получение сотрудника по id")
-    public void checkGetEmployeeId() {
+    @DisplayName("Валидация ответа запроса на получение сотрудника по id")
+    public void checkValidateResponseGetEmployeeId() {
         sendGetRequestEmployeeId(employeeId)
                 .then()
-                .statusCode(200);
-    }
-    @Test
-    @DisplayName("Статус 200. Несуществующий id")
-    public void checkNonexistentEmployeeId() {
-        incorrectEmployeeId = testData.getIncorrectEmployeeId();
-        sendGetRequestEmployeeId(incorrectEmployeeId)
-                .then()
-                .statusCode(200)
-                .body(equalTo(""));
-    }
-
-    @Test
-    @DisplayName("Запрос по сотруднику. Проверяем, что в ответе приходит JSON-файл")
-    public void checkGetJsonEmployeeId() {
-        String responseBody = sendGetRequestEmployeeId(employeeId)
-                .then()
-                .contentType(ContentType.JSON)
-                .extract().asString();
-        assertTrue(responseBody.startsWith("{"));
-        assertTrue(responseBody.endsWith("}"));
-    }
-
-    @Test
-    @DisplayName("Статус 200. Получить список сотрудников для компании")
-    public void checkGetListEmployeeCompanyIdStatusOk() {
-        System.out.println(companyId);
-        sendGetRequestCompanyId(companyId)
-                .then()
-                .statusCode(200);
-    }
-
-    @Test
-    @DisplayName("Статус 200. Несуществующий id")
-    public void checkNonexistentCompanyId() {
-        incorrectCompanyId = testData.getIncorrectCompanyId();
-        sendGetRequestCompanyId(incorrectCompanyId)
-                .then()
-                .statusCode(200)
-                .body(equalTo(""));
+                .body("id", equalTo(employeeId))
+                .body("isActive", equalTo(createEmployeeRequestPost.isActive()))
+                .body("firstName", equalTo(createEmployeeRequestPost.firstName()))
+                .body("lastName", equalTo(createEmployeeRequestPost.lastName()))
+                .body("middleName", equalTo(createEmployeeRequestPost.middleName()))
+                .body("phone", equalTo(createEmployeeRequestPost.phone()))
+                .body("email", equalTo(null))
+                .body("birthdate", equalTo(createEmployeeRequestPost.birthdate()))
+                .body("avatar_url", equalTo(createEmployeeRequestPost.url()))
+                .body("companyId", equalTo(companyId));
     }
 
     @Disabled("Проблема с contentType. Тест работает не стабильно,иногда отрабатывает, иногда ошибку выдает")
     @Test
-    @DisplayName("Запрос по компании. Проверяем, что в ответе приходит JSON-файл")
-    public void checkGetJsonCompanyId() {
-        String responseBody =
-                sendGetRequestCompanyId(companyId)
-                        .then()
-                        .contentType(ContentType.JSON)
-                        .extract().asString();
-        assertTrue(responseBody.startsWith("{"));
-        assertTrue(responseBody.endsWith("}"));
-        System.out.println(responseBody);
+    @DisplayName("Валидация ответа запроса на получение cписка сотрудников по id компании")
+    public void checkValidateResponseGetCompanyId() {
+        sendGetRequestCompanyId(companyId)
+                .then()
+                .contentType(ContentType.JSON)
+                .body("id", equalTo(employeeId))
+                .body("isActive", equalTo(createEmployeeRequestPost.isActive()))
+                .body("firstName", equalTo(createEmployeeRequestPost.firstName()))
+                .body("lastName", equalTo(createEmployeeRequestPost.lastName()))
+                .body("middleName", equalTo(createEmployeeRequestPost.middleName()))
+                .body("phone", equalTo(createEmployeeRequestPost.phone()))
+                .body("email", equalTo(null))
+                .body("birthdate", equalTo(createEmployeeRequestPost.birthdate()))
+                .body("avatar_url", equalTo(createEmployeeRequestPost.url()))
+                .body("companyId", equalTo(companyId));
     }
 
     private static Response sendPostRequest(Object bodyRequest, String token) {

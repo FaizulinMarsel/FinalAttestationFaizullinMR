@@ -1,4 +1,6 @@
 package utils.auth;
 
-public record AuthRequest(String username, String password) {
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public record AuthRequest(@JsonProperty("username") String login, @JsonProperty("password") String password) {
 }

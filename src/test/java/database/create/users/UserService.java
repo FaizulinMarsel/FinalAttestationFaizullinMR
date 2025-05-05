@@ -1,10 +1,19 @@
 package database.create.users;
 
-import utils.auth.AuthRequest;
-
-import java.sql.SQLException;
-
 public interface UserService {
-    AuthRequest createNew(UserEntity entity) throws SQLException;
-    void deleteUserByLogin(String login) throws SQLException;
+    static UserService getInstance() {
+        return LocalUserService.LOCAL_USER_SERVICE;
+    }
+
+    boolean getIsActive();
+
+    String getLogin();
+
+    String getPassword();
+
+    String getDisplayName();
+
+    String getRole();
+
+    void setRole(Role role);
 }
