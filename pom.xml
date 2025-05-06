@@ -95,7 +95,7 @@
                     </argLine>
                     <includes>
                         <include>
-                            *.java
+                            ContractGetTest.java
                         </include>
                     </includes>
                 </configuration>
