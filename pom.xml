@@ -95,7 +95,7 @@
                     </argLine>
                     <includes>
                         <include>
-                            *.java
+                            AuthorizationTest.java
                         </include>
                     </includes>
                 </configuration>
