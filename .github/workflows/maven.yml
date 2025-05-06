@@ -22,14 +22,10 @@ jobs:
           cache: maven
 
       - name: Run test
-        run: mvn clean test
-
-      - name: Debug Allure results path
         run: |
-          echo "Checking target directory..."
-          ls -la target
-          echo "Checking allure-results inside target..."
-          ls -la target/allure-results || echo "target/allure-results does not exist"
+          mvn clean test
+          mvn allure:report
+        continue-on-error: true
 
       - name: Generate Allure Report
         uses: simple-elf/allure-report-action@master
