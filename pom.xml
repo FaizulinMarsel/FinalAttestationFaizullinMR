@@ -114,7 +114,7 @@
                     </argLine>
                     <includes>
                         <include>
-                            AuthorizationTest.java
+                            tests/ui/saucedemo/AuthorizationTest.java
                         </include>
                     </includes>
                 </configuration>
