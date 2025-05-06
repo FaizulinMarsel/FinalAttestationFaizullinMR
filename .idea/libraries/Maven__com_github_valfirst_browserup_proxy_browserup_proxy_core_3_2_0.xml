@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Maven: com.github.valfirst.browserup-proxy:browserup-proxy-core:3.2.0" type="java-imported" external-system-id="Maven">
+    <properties groupId="com.github.valfirst.browserup-proxy" artifactId="browserup-proxy-core" version="3.2.0" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/valfirst/browserup-proxy/browserup-proxy-core/3.2.0/browserup-proxy-core-3.2.0.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/valfirst/browserup-proxy/browserup-proxy-core/3.2.0/browserup-proxy-core-3.2.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/valfirst/browserup-proxy/browserup-proxy-core/3.2.0/browserup-proxy-core-3.2.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
