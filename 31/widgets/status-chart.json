@@ -1,0 +1,1 @@
+[{"uid":"915e5f4efc6f6d35","name":"Авторизация с заблокированным пользователем","time":{"start":1746555156336,"stop":1746555159363,"duration":3027},"status":"passed","severity":"normal"},{"uid":"b210150323c9fec9","name":"Авторизация с не заблокированным пользователем","time":{"start":1746555159476,"stop":1746555160011,"duration":535},"status":"passed","severity":"normal"}]
