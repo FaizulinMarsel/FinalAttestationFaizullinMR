@@ -95,7 +95,7 @@
                     </argLine>
                     <includes>
                         <include>
-                            ContractGetTest.java
+                            AuthorizationTest.java
                         </include>
                     </includes>
                 </configuration>

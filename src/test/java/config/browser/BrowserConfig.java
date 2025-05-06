@@ -6,5 +6,6 @@ public interface BrowserConfig {
     }
     String pageLoadStrategy();
     String browser();
+    String headless();
 
 }

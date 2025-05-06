@@ -17,4 +17,10 @@ public enum LocalBrowserConfig implements BrowserConfig {
     public String browser() {
         return PROPS.getProperty("browser","chrome");
     }
+
+    @Override
+    public String headless() {
+        return PROPS.getProperty("headless", "false");
+    }
+
 }

@@ -12,6 +12,7 @@ public abstract class BaseTest {
     static void setUp(){
         Configuration.browser = BROWSER.browser();
         Configuration.pageLoadStrategy = BROWSER.pageLoadStrategy();
+        Configuration.headless = Boolean.parseBoolean(BROWSER.headless());
     }
 
 }
