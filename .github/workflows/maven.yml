@@ -41,10 +41,11 @@ jobs:
           allure_report: target/allure-report
           allure_history: allure-history
           gh_pages: gh-pages
+
       - name: Deploy report to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v2
         with:
-          personal_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: allure-history
