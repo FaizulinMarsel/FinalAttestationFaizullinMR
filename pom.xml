@@ -95,6 +95,14 @@
                     <reportVersion>${allure.version}</reportVersion>
                     <resultsDirectory>${allure.results.directory}</resultsDirectory>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>report</goal>
+                            <goal>serve</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
